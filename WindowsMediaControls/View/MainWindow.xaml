@@ -13,7 +13,7 @@
         xmlns:converters="clr-namespace:WindowsMediaControls.Converters"
         xmlns:cmd1="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="MainWindow" Height="107.097" Width="659.667"
+        Title="MainWindow" Height="117.748" Width="678.01"
         AllowsTransparency="True">
 
     <Window.Resources>
@@ -35,23 +35,56 @@
         <Style x:Key="BasicButton" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="0"/>
 
+            <Setter Property="Background" Value="#5000"/>
 
         </Style>
-        <Style x:Key="HoverClickButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BasicButton}">
+        <Style x:Key="CloseButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BasicButton}">
+            <Setter Property="Foreground" Value="IndianRed"/>
             <Setter Property="Template">
                 <Setter.Value>
+                    
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    Margin="0.5">
+                        BorderThickness="{TemplateBinding Background}">
                             <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Silver" />
+                                <Setter Property="Background" Value="IndianRed" />
+                                <Setter Property="Foreground" Value="White" />
                             </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="HoverClickButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BasicButton}">
+            <Setter Property="Foreground" Value="DeepSkyBlue"/>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                        
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="Transparent">
+
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        
+                        <ControlTemplate.Triggers>
+
+                                <!--<Setter Property="Background" Value="Silver"/>-->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderThickness" Value="1"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="DeepSkyBlue"/>
+                                </Trigger>
+
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="White" />
+                                <Setter Property="Background" Value="Silver" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -169,21 +202,21 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" >
-            <CheckBox   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsStartup, Mode=TwoWay}"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="10"  Grid.Row="1" >
-               
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked">
-                        <i:InvokeCommandAction Command="{Binding Startup}"/>
-                    </i:EventTrigger>
+                <CheckBox   IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=IsStartup, Mode=TwoWay}"  HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="10"  Grid.Row="1" >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{Binding Startup}"/>
+                        </i:EventTrigger>
                         <i:EventTrigger EventName="Unchecked">
                             <i:InvokeCommandAction Command="{Binding Startup}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-            </CheckBox>
+                </CheckBox>
                 <Image Source="/icon/windows.png" Margin="0,-2,0,0"/>
                 <TextBlock Foreground="White" Text="Startup" Margin="0,-2,0,0" IsEnabled="False"/>
             </StackPanel>
-            <Button Content="X"  Style="{StaticResource HoverClickButton}" HorizontalAlignment="Center"  Width="88"  Grid.Row="2" >
+            <Button Content="X"   Style="{StaticResource CloseButton}" HorizontalAlignment="Center"  Width="88"  Grid.Row="2" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CloseWindow}" 
@@ -232,7 +265,7 @@
             <!--Gesture Boxes-->
 
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=PlayPauseGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
-                HorizontalAlignment="Right" Width="80"    BorderThickness="0" Grid.Column="0"
+                HorizontalAlignment="Stretch"    BorderThickness="0" Grid.Column="0"
                      extensions:FocusExtension.IsFocused="{Binding IsPlayFocused, Mode=TwoWay}" VerticalAlignment="Bottom" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" >
                 <i:Interaction.Triggers>
@@ -242,7 +275,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=BackwardGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="1"
+                     HorizontalAlignment="Stretch"  BorderThickness="0" Grid.Column="1"
                      extensions:FocusExtension.IsFocused="{Binding IsBackwardFocused , Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
@@ -254,7 +287,7 @@
 
 
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=ForwardGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="2"
+                     HorizontalAlignment="Stretch"   BorderThickness="0" Grid.Column="2"
                      extensions:FocusExtension.IsFocused="{Binding  IsForwardFocused, Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
@@ -264,7 +297,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=StopGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="3"
+                     HorizontalAlignment="Stretch"   BorderThickness="0" Grid.Column="3"
                      extensions:FocusExtension.IsFocused="{Binding IsStopFocused, Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
@@ -275,7 +308,7 @@
 
             </TextBox>
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=PlusVolumeGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="4"
+                     HorizontalAlignment="Stretch"  BorderThickness="0" Grid.Column="4"
                      extensions:FocusExtension.IsFocused="{Binding IsPlusVolumeFocused, Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
@@ -286,7 +319,7 @@
 
             </TextBox>
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=MinusVolumeGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="5"
+                     HorizontalAlignment="Stretch"   BorderThickness="0" Grid.Column="5"
                      extensions:FocusExtension.IsFocused="{Binding IsMinusVolumeFocused, Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
@@ -297,7 +330,7 @@
 
             </TextBox>
             <TextBox Text="{Binding Source={x:Static properties:Settings.Default}, Path=MuteGesture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     HorizontalAlignment="Right" Width="80"  BorderThickness="0" Grid.Column="6"
+                     HorizontalAlignment="Stretch"  BorderThickness="0" Grid.Column="6"
                      extensions:FocusExtension.IsFocused="{Binding IsMuteFocused, Mode=TwoWay}" TextAlignment="Right"
                      Style="{StaticResource inputTextBox}" Margin="0,6,0,0">
                 <i:Interaction.Triggers>
