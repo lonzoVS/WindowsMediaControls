@@ -265,6 +265,7 @@ namespace WindowsMediaControls.ViewModel
                 TextBox elementWithFocus = Keyboard.FocusedElement as TextBox;
                 if (elementWithFocus != null)
                 {
+                    Properties.Settings.Default.GesturesEnabled = false;
                     elementWithFocus.Text = "";
                     Properties.Settings.Default.Save();
                 }
