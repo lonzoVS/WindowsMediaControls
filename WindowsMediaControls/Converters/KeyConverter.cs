@@ -14,9 +14,10 @@ namespace WindowsMediaControls.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
+            
             Key key = Key.NoName;
             var keyString = value.ToString();
+
             if (keyString == "")
                 return key;
             else

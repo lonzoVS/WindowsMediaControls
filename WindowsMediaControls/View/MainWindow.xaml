@@ -19,8 +19,12 @@
     <Window.Resources>
         <converters:KeyConverter x:Key="KeyConverter"/>
         <converters:ModifierConverter x:Key="ModifierConverter"/>
-        <Style x:Key="inputTextBox">
+        <Style x:Key="inputTextBox"  TargetType="{x:Type TextBox}">
             <Setter Property="Control.Foreground" Value="Blue"></Setter>
+            <Setter Property="IsReadOnly" Value="True"></Setter>
+            <Setter Property="IsReadOnlyCaretVisible" Value="False"></Setter>
+            <Setter Property="IsUndoEnabled" Value="False"></Setter>
+
             <Style.Triggers>
                 <Trigger Property="Control.IsFocused" Value="True">
                     <Setter Property="Control.Foreground" Value="Black" />
@@ -349,14 +353,14 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
-            <Button Content="backward" Grid.Row="1" Grid.Column="1" Style="{StaticResource HoverClickButton}">
+            <Button Content="next" Grid.Row="1" Grid.Column="1" Style="{StaticResource HoverClickButton}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding Path=Backward}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
-            <Button Content="forward" Grid.Row="1" Grid.Column="2" Style="{StaticResource HoverClickButton}">
+            <Button Content="prev" Grid.Row="1" Grid.Column="2" Style="{StaticResource HoverClickButton}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding Path=Forward}"/>

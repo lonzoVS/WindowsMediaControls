@@ -27,9 +27,8 @@ D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\View\MainWindow.ba
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\View\NotifyIconResources.baml
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.g.resources
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.Properties.Resources.resources
-D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csproj.GenerateResource.Cache
+D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csproj.GenerateResource.cache
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csproj.CoreCompileInputs.cache
+D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csproj.CopyComplete
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.exe
 D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.pdb
-D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csprojAssemblyReference.cache
-D:\apps\WindowsMediaControls\WindowsMediaControls\obj\Release\WindowsMediaControls.csproj.CopyComplete

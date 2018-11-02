@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -19,95 +20,55 @@ using WindowsMediaControls.Media;
 
 namespace WindowsMediaControls.ViewModel
 {
-    public class MediaControlViewModel : INotifyPropertyChanged
+    public class MediaControlViewModel : ViewModelBase
     {
 
 
 
         #region Properties
    
-
-
-        private KeyGesture _playPauseGesture = new KeyGesture(Key.A, ModifierKeys.Alt);
-        public KeyGesture PlayGesture
-        {
-            get { return _playPauseGesture; }
-            set
-            {
-                _playPauseGesture = value;
-                OnPropertyChanged("PlayGesture");
-            }
-        }
-
         private bool _isStopFocused;
         public bool IsStopFocused
         {
-            get { return _isStopFocused; }
-            set
-            {
-                _isStopFocused = value;
-                OnPropertyChanged("IsStopFocused");
-            }
+            get => _isStopFocused;
+            set => Set(ref _isStopFocused, value);
+            
         }
         private bool _isPlayFocused;
         public bool IsPlayFocused
         {
-            get { return _isPlayFocused; }
-            set
-            {
-                _isPlayFocused = value;
-                OnPropertyChanged("IsPlayFocused");
-            }
+            get => _isPlayFocused;
+            set => Set(ref _isPlayFocused, value);
         }
         private bool _isForwardFocused;
         public bool IsForwardFocused
         {
-            get { return _isForwardFocused; }
-            set
-            {
-                _isForwardFocused = value;
-                OnPropertyChanged("IsForwardFocused");
-            }
+            get => _isForwardFocused;
+            set => Set(ref _isForwardFocused, value);
         }
         private bool _isBackwardFocused;
         public bool IsBackwardFocused
         {
-            get { return _isBackwardFocused; }
-            set
-            {
-                _isBackwardFocused = value;
-                OnPropertyChanged("IsBackwardFocused");
-            }
+            get => _isBackwardFocused;
+            set => Set(ref _isBackwardFocused, value);
         }
         private bool _isPlusVolumeFocused;
         public bool IsPlusVolumeFocused
         {
-            get { return _isPlusVolumeFocused; }
-            set
-            {
-                _isPlusVolumeFocused = value;
-                OnPropertyChanged("IsPlusVolumeFocused");
-            }
+            get => _isPlusVolumeFocused;
+            set => Set(ref _isPlusVolumeFocused, value);
         }
         private bool _isMinusVolumeFocused;
         public bool IsMinusVolumeFocused
         {
-            get { return _isMinusVolumeFocused; }
-            set
-            {
-                _isMinusVolumeFocused = value;
-                OnPropertyChanged("IsMinusVolumeFocused");
-            }
+            get => _isMinusVolumeFocused;
+            set => Set(ref _isMinusVolumeFocused, value);
         }
         private bool _isMuteFocused;
         public bool IsMuteFocused
         {
-            get { return _isMuteFocused; }
-            set
-            {
-                _isMuteFocused = value;
-                OnPropertyChanged("IsMuteFocused");
-            }
+            get => _isMuteFocused;
+            set => Set(ref _isMuteFocused, value);
         }
 
         #endregion
@@ -137,23 +98,23 @@ namespace WindowsMediaControls.ViewModel
         public MediaControlViewModel()
         {
             Startup = new RelayCommand(OnStartUp);
-            CloseWindow = new RelayCommand<Window>((Window obj) => { obj?.Close(); Application.Current.MainWindow = null; });
+            CloseWindow = new RelayCommand<Window>((Window obj) => { obj?.Close(); Application.Current.MainWindow = null; }, keepTargetAlive: true);
             EnableGestures = new RelayCommand(OnEnanbleGestures);
-            PlayPausePreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.PlayPauseGesture)));
-            StopPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.StopGesture)));
-            VolumeUpPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.PlusVolumeGesture)));
-            VolumeDownPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.MinusVolumeGesture)));
-            MutePreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.MuteGesture)));
-            ForwardPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.ForwardGesture)));
-            BackwardPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.BackwardGesture)));
+            PlayPausePreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.PlayPauseGesture)), keepTargetAlive: true);
+            StopPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.StopGesture)), keepTargetAlive: true);
+            VolumeUpPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.PlusVolumeGesture)), keepTargetAlive: true);
+            VolumeDownPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.MinusVolumeGesture)), keepTargetAlive: true);
+            MutePreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.MuteGesture)), keepTargetAlive: true);
+            ForwardPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.ForwardGesture)), keepTargetAlive: true);
+            BackwardPreviewKeyDown = new RelayCommand<EventArgs>((EventArgs e) => SaveKeybinding(e, nameof(Properties.Settings.Default.BackwardGesture)), keepTargetAlive: true);
 
-            SetStop = new RelayCommand(() => IsStopFocused = true);
-            Forward = new RelayCommand(() => IsForwardFocused = true);
-            Backward = new RelayCommand(() => IsBackwardFocused = true);
-            Mute = new RelayCommand(() => IsMuteFocused = true);
-            PlayPause = new RelayCommand(() => IsPlayFocused = true);
-            PlusVolume = new RelayCommand(() => IsPlusVolumeFocused = true);
-            MinusVolume = new RelayCommand(() => IsMinusVolumeFocused = true);
+            SetStop = new RelayCommand(() => IsStopFocused = true, keepTargetAlive: true);
+            Forward = new RelayCommand(() => IsForwardFocused = true, keepTargetAlive: true);
+            Backward = new RelayCommand(() => IsBackwardFocused = true, keepTargetAlive: true);
+            Mute = new RelayCommand(() => IsMuteFocused = true, keepTargetAlive: true);
+            PlayPause = new RelayCommand(() => IsPlayFocused = true, keepTargetAlive: true);
+            PlusVolume = new RelayCommand(() => IsPlusVolumeFocused = true, keepTargetAlive: true);
+            MinusVolume = new RelayCommand(() => IsMinusVolumeFocused = true, keepTargetAlive: true);
             WindowMouseDown = new RelayCommand<MouseButtonEventArgs>(OnWindowMouseDown);
            
 
@@ -201,20 +162,27 @@ namespace WindowsMediaControls.ViewModel
         private void SaveKeybinding(EventArgs m, string nameOfSetting)
         {
             var e = (m != null) ? (KeyEventArgs)m : null;
-            e.Handled = true;
+            
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
-
+            
+            e.Handled = true;
             if (CanGetShortcut(Properties.Settings.Default.PlayPauseGesture, key))
             {
+                System.Diagnostics.Debug.WriteLine(GetShortcut(key) + " --inside");
                 Properties.Settings.Default.GesturesEnabled = false;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default[nameOfSetting] = GetShortcut(key);
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.GesturesEnabled = true;
                 Properties.Settings.Default.Save();
+                e.Handled = false;
             }
             else
+            {
+                e.Handled = false;
                 return;
+            }
+                
         }
 
 
@@ -225,18 +193,24 @@ namespace WindowsMediaControls.ViewModel
             {
                 shortcutText.Append("Ctrl+");
             }
-            if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
+            else if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
             {
                 shortcutText.Append("Shift+");
             }
-            if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
+            else if ((Keyboard.Modifiers & ModifierKeys.Alt) != 0)
             {
                 shortcutText.Append("Alt+");
             }
+            else if(Keyboard.Modifiers == ModifierKeys.None)
+            {
+                return "";
+            }
+            
             return shortcutText.Append(key.ToString()).ToString();
         }
         private bool CanGetShortcut(string gesture, Key key)
         {
+            
             // Ignore modifier keys.
             if (key == Key.LeftShift || key == Key.RightShift
                 || key == Key.LeftCtrl || key == Key.RightCtrl
@@ -265,24 +239,19 @@ namespace WindowsMediaControls.ViewModel
                 TextBox elementWithFocus = Keyboard.FocusedElement as TextBox;
                 if (elementWithFocus != null)
                 {
+                    Properties.Settings.Default.GesturesEnabled = false;
                     elementWithFocus.Text = "";
+                   
                     Properties.Settings.Default.Save();
+                    Properties.Settings.Default.GesturesEnabled = true;
                 }
                 return false;
             }
+          
+           // else if (key.)
             else
                 return true;
         }
 
-        #region INPC-related code
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

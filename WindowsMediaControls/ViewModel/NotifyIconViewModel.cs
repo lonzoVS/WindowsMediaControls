@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using WindowsMediaControls.Media;
 
 namespace WindowsMediaControls.ViewModel
 {
-    public class NotifyIconViewModel : INotifyPropertyChanged
+    public class NotifyIconViewModel : ViewModelBase
     {
 
         private BasicMediaControl _mediaControl = new WIN32APIMediaControl(); //make DI later
@@ -91,15 +92,6 @@ namespace WindowsMediaControls.ViewModel
         }
 
 
-        #region INPC-related code
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+  
     }
 }

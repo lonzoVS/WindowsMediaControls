@@ -14,7 +14,7 @@ namespace WindowsMediaControls.Media.WindowsMessageBehaviours
         public void DecreaseVolume()
         {
             
-            Win32Api.WIN32_SendMessage(Win32Api.GethWnd(), (uint)Win32Api.WM.WM_APPCOMMAND, Win32Api.GethWnd(), (int)AppCommands.APPCOMMAND_INCREASE_VOLUME);
+            Win32Api.WIN32_SendMessage(Win32Api.GethWnd(), (uint)Win32Api.WM.WM_APPCOMMAND, Win32Api.GethWnd(), (int)AppCommands.APPCOMMAND_DECREASE_VOLUME);
         }
     }
 }
